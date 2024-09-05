@@ -1,6 +1,6 @@
 package models
 
-type BookShowInput struct {
+type BookInput struct {
 	Name           string    `json:"name"`
 	Phone          int64     `json:"phone"`
 	Email          string    `json:"email"`
