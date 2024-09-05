@@ -16,7 +16,16 @@ func BookHandler(w http.ResponseWriter, r *http.Request) {
 
 	// create an instance of the struct
 	bookData := models.BookInput {
-		Name: r.FormValue("name"),
+		Name: 			r.FormValue("name"),
+		Phone:          r.FormValue("phone"),
+        Email:          r.FormValue("email"),
+        Location:       r.FormValue("location"),
+        Duration:       r.FormValue("duration"),
+        NumberOfGuests: r.FormValue("number_of_guests"),
+        EventDate:      r.FormValue("event_date"),
+        EventTime:      r.FormValue("event_time"),
+        Budget:         r.FormValue("budget"),
+        Comment:        r.FormValue("comment"),
 	}
 
 	// print the data to the console
