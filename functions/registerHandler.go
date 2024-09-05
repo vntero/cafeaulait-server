@@ -38,4 +38,6 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 
 	// print the data to the console
 	log.Println("Received Register form submission:", registerData)
+
+	SendRegisterEmail()
 }
