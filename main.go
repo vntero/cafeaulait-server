@@ -1,10 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
-	"time"
 )
 
 
@@ -15,15 +13,15 @@ type BookShowInput struct {
 	Location       string    `json:"location"`
 	Duration       int64     `json:"duration"`
 	NumberOfGuests int64     `json:"number_of_guests"`
-	EventDate      time.Time `json:"event_date"`
-	EventTime      time.Time `json:"event_time"`
+	EventDate      string `json:"event_date"`
+	EventTime      string `json:"event_time"`
 	Budget         int64     `json:"budget"`
 	Comment        string    `json:"comment"`
 }
 
 type RegisterInput struct {
 	Name                 string    `json:"name"`
-	Birthday             time.Time `json:"birthday"`
+	Birthday             string `json:"birthday"`
 	Origin               string    `json:"origin"`
 	Motivation           string    `json:"motivation"`
 	ParentOneName        string    `json:"parent_one_name"`
@@ -45,8 +43,18 @@ type RegisterInput struct {
 
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	log.Println("Home route accessed")
-	fmt.Fprintf(w, "Hello from Zürich!")
+	// parse incoming data
+	if err := r.ParseForm(); err != nil {
+		log.Println("Error parsing data:", err)
+		http.Error(w, "Unable to process data", http.StatusBadRequest)
+		return
+	}
+
+	registerData := RegisterInput {
+		Name: r.FormValue("name"),
+		Birthday: r.FormValue("birthday"),
+		Origin: r.FormValue("origin"),
+	}
 }
 
 func main() {
