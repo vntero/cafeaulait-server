@@ -6,7 +6,6 @@ import (
 	"net/http"
 )
 
-
 func main() {
 	routes.PostBook()
 	routes.PostRegister()
