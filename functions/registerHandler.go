@@ -2,7 +2,6 @@ package functions
 
 import (
 	"cafeaulait-server/models"
-	"fmt"
 	"log"
 	"net/http"
 )
@@ -23,7 +22,5 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// print the data to the console
-	log.Println("Received form submission:", registerData)
-
-	fmt.Fprintf(w, "Form submitted successfully!")
+	log.Println("Received Register form submission:", registerData)
 }

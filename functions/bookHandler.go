@@ -2,7 +2,6 @@ package functions
 
 import (
 	"cafeaulait-server/models"
-	"fmt"
 	"log"
 	"net/http"
 )
@@ -21,7 +20,5 @@ func BookHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// print the data to the console
-	log.Println("Received form submission:", bookData)
-
-	fmt.Fprintf(w, "Form submitted successfully!")
+	log.Println("Received Book form submission:", bookData)
 }
