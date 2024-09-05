@@ -64,6 +64,7 @@ func SendRegisterEmail(data models.RegisterInput) {
 		data.ParentTwoHouseNumber, data.ParentTwoPostcode, data.ParentTwoLocation,
 	)
 
+	// gomail magic starts here
 	m := gomail.NewMessage()
 
 	// Set E-Mail sender
@@ -73,7 +74,7 @@ func SendRegisterEmail(data models.RegisterInput) {
 	m.SetHeader("To", receiver)
 
 	// Set E-Mail subject
-	m.SetHeader("Subject", "Gomail test subject")
+	m.SetHeader("Subject", "Child registration for dance classes")
 
 	// Set E-Mail body. You can set plain text or html with text/html
 	m.SetBody("text/html", body)
