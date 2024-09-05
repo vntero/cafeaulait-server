@@ -1,15 +1,13 @@
 package main
 
 import (
+	"fmt"
+	"log"
+	"net/http"
 	"time"
-
-	"github.com/google/uuid"
 )
 
-type Item struct {
-	ID   uuid.UUID `json:"id"`
-	Name string    `json:"name"`
-}
+
 type BookShowInput struct {
 	Name           string    `json:"name"`
 	Phone          int64     `json:"phone"`
@@ -46,3 +44,15 @@ type RegisterInput struct {
 
 
 
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("Home route accessed")
+	fmt.Fprintf(w, "Hello from Zürich!")
+}
+
+func main() {
+	http.HandleFunc("/", homeHandler) // register the route and handler
+
+	log.Println("Starting server on :8080")
+
+	http.ListenAndServe(":8080", nil) // start the server on port 8080
+}
