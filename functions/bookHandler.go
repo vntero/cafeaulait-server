@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func bookHandler(w http.ResponseWriter, r *http.Request) {
+func BookHandler(w http.ResponseWriter, r *http.Request) {
 	// parse incoming data
 	if err := r.ParseForm(); err != nil {
 		log.Println("Error parsing data:", err)
