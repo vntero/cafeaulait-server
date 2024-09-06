@@ -2,34 +2,33 @@ package functions
 
 import (
 	"cafeaulait-server/models"
+	"encoding/json"
 	"log"
 	"net/http"
 )
 
 func BookHandler(w http.ResponseWriter, r *http.Request) {
-	// parse incoming data
-	if err := r.ParseForm(); err != nil {
-		log.Println("Error parsing data:", err)
-		http.Error(w, "Unable to process data", http.StatusBadRequest)
-		return
+	EnableCors(&w)
+
+	if r.Method == http.MethodPost {
+
+		// Decode the incoming JSON payload into the struct directly
+		var bookData models.BookInput
+		err := json.NewDecoder(r.Body).Decode(&bookData)
+		if err != nil {
+			log.Println("Error decoding JSON:", err)
+			http.Error(w, "Bad request", http.StatusBadRequest)
+			return
+		}
+
+		// Log the received data for debugging
+		log.Println("Received Book form submission:", bookData)
+
+		// Respond with the received data as confirmation
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(bookData)
+
+		// Send an email with the received data
+		SendBookEmail(bookData)
 	}
-
-	// create an instance of the struct
-	bookData := models.BookInput{
-		Name:           r.FormValue("name"),
-		Phone:          r.FormValue("phone"),
-		Email:          r.FormValue("email"),
-		Location:       r.FormValue("location"),
-		Duration:       r.FormValue("duration"),
-		NumberOfGuests: r.FormValue("number_of_guests"),
-		EventDate:      r.FormValue("event_date"),
-		EventTime:      r.FormValue("event_time"),
-		Budget:         r.FormValue("budget"),
-		Comment:        r.FormValue("comment"),
-	}
-
-	// print the data to the console
-	log.Println("Received Book form submission:", bookData)
-
-	SendBookEmail(bookData)
 }
