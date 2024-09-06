@@ -29,7 +29,7 @@ func SendRegisterEmail(data models.RegisterInput) {
 	<html>
 		<body>
 			<h1>We have another child insterested in joining our classes!</h1>
-			<p>Here are the registration details:</p>
+			<h2>Here are the registration details:</h2>
 			<ul>
 				<li><strong>Name:</strong> %s</li>
 				<li><strong>Birthday:</strong> %s</li>
