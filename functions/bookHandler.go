@@ -30,4 +30,6 @@ func BookHandler(w http.ResponseWriter, r *http.Request) {
 
 	// print the data to the console
 	log.Println("Received Book form submission:", bookData)
+
+	SendBookEmail(bookData)
 }
