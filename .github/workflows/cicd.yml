@@ -32,7 +32,7 @@ jobs:
         run: docker pull vntero/cafeaulait-server:latest
 
       - name: Delete old container if already exists
-        run: docker rm -f cafeaulait-server-container || true
+        run: docker rm -f cafeaulait-server-container
 
       - name: Run docker container
         run: docker run -d -p 1991:1991 --name cafeaulait-server-container vntero/cafeaulait-server
