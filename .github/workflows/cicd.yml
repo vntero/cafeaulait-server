@@ -1,0 +1,17 @@
+name: Deploy CAL server
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout source
+            uses: actions/checkout@v4
+            - name: Create .env file
+            run: echo "PORT=${{secrets.PORT}}" >> .env
+            - name: Login to dockerhub
+            
