@@ -22,5 +22,5 @@ func main() {
 
 	log.Println("Starting server on :" + os.Getenv("PORT"))
 
-	http.ListenAndServe(os.Getenv("PORT"), nil) // start the server on assigned PORT
+	http.ListenAndServe(":"+os.Getenv("PORT"), nil) // start the server
 }
