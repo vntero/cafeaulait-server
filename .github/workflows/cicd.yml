@@ -1,17 +1,38 @@
 name: Deploy CAL server
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout source
-            uses: actions/checkout@v4
-            - name: Create .env file
-            run: echo "PORT=${{secrets.PORT}}" >> .env
-            - name: Login to dockerhub
-            
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Create .env file
+        run: echo "PORT=${{secrets.PORT}}" >> .env
+
+      - name: Login to dockerhub
+        run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PW}}
+
+      - name: Build docker image
+        run: docker build -t vntero/cafeaulait-server .
+
+      - name: Push image to dockerhub
+        run: docker push vntero/cafeaulait-server:latest
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull docker image
+        run: docker pull vntero/cafeaulait-server:latest
+
+      - name: Delete old container if already exists
+        run: docker rm -f cafeaulait-server-container || true
+
+      - name: Run docker container
+        run: docker run -d -p 1991:1991 --name cafeaulait-server-container vntero/cafeaulait-server
