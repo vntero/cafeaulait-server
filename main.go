@@ -16,6 +16,7 @@ func main() {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
 
+	routes.GetHello()
 	routes.PostBook()
 	routes.PostRegister()
 
