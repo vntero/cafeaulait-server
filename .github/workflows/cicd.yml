@@ -28,6 +28,9 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
+      - name: Login to dockerhub
+        run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PW}}
+
       - name: Pull docker image
         run: docker pull vntero/cafeaulait-server:latest
 
