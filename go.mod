@@ -2,11 +2,6 @@ module cafeaulait-server
 
 go 1.21.1
 
-require (
-	github.com/google/uuid v1.6.0
-	github.com/gorilla/mux v1.8.1
-)
-
 require gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 
 require (
