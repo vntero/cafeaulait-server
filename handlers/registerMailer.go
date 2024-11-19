@@ -92,5 +92,5 @@ func SendRegisterEmail(data models.RegisterInput) {
 		panic(err)
 	}
 
-	return
+	// return
 }

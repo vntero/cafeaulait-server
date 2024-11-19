@@ -74,5 +74,5 @@ func SendBookEmail(data models.BookInput) {
 		panic(err)
 	}
 
-	return
+	// return
 }
