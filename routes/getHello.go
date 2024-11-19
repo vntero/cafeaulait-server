@@ -1,12 +1,12 @@
 package routes
 
 import (
-	"cafeaulait-server/functions"
+	"cafeaulait-server/handlers"
 	"log"
 	"net/http"
 )
 
 func GetHello() {
-	http.HandleFunc("/", functions.HelloHandler)
+	http.HandleFunc("/", handlers.ListHello)
 	log.Println("GET / is now available")
 }

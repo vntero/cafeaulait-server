@@ -16,11 +16,12 @@ func main() {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
 
+	// load routes
 	routes.GetHello()
 	routes.PostBook()
 	routes.PostRegister()
 
+	// start server
 	log.Println("Starting server on :" + os.Getenv("PORT"))
-
 	http.ListenAndServe(":"+os.Getenv("PORT"), nil) // start the server
 }

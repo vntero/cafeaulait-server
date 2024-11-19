@@ -1,14 +1,16 @@
-package functions
+package handlers
 
 import (
+	"cafeaulait-server/configs"
 	"cafeaulait-server/models"
+
 	"encoding/json"
 	"log"
 	"net/http"
 )
 
-func BookHandler(w http.ResponseWriter, r *http.Request) {
-	EnableCors(&w)
+func AddBook(w http.ResponseWriter, r *http.Request) {
+	configs.EnableCors(&w)
 
 	if r.Method == http.MethodPost {
 
