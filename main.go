@@ -1,20 +1,16 @@
 package main
 
 import (
+	"cafeaulait-server/configs"
 	"cafeaulait-server/routes"
 	"log"
 	"net/http"
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 func main() {
 	// load the env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-	}
+	configs.LoadEnv()
 
 	// load routes
 	routes.GetHello()

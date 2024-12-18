@@ -3,21 +3,17 @@ package handlers
 import (
 	"crypto/tls"
 	"fmt"
-	"log"
 	"os"
 
+	"cafeaulait-server/configs"
 	"cafeaulait-server/models"
 
-	"github.com/joho/godotenv"
 	gomail "gopkg.in/mail.v2"
 )
 
 func SendRegisterEmail(data models.RegisterInput) {
 	// load the env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-	}
+	configs.LoadEnv()
 
 	// sender data
 	sender := os.Getenv("SENDER")
