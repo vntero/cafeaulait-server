@@ -6,12 +6,12 @@ import (
 	"os"
 
 	"cafeaulait-server/configs"
-	"cafeaulait-server/models"
+	"cafeaulait-server/data"
 
 	gomail "gopkg.in/mail.v2"
 )
 
-func SendRegisterEmail(data models.RegisterInput) {
+func SendRegisterEmail(data data.ResgisterData) {
 	// load the env file
 	configs.LoadEnv()
 

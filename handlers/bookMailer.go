@@ -6,12 +6,12 @@ import (
 	"os"
 
 	"cafeaulait-server/configs"
-	"cafeaulait-server/models"
+	"cafeaulait-server/data"
 
 	gomail "gopkg.in/mail.v2"
 )
 
-func SendBookEmail(data models.BookInput) {
+func SendBookEmail(data data.BookData) {
 	// load the env file
 	configs.LoadEnv()
 
