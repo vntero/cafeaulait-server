@@ -30,6 +30,7 @@ func SendBookEmail(data data.BookData) {
 				<li><strong>Name:</strong> %s</li>
 				<li><strong>Phone:</strong> %s</li>
 				<li><strong>Email:</strong> %s</li>
+				<li><strong>Organization:</strong> %s</li>
 				<li><strong>Location:</strong> %s</li>
 				<li><strong>Duration:</strong> %s</li>
 				<li><strong>Number of guests:</strong> %s</li>
@@ -39,7 +40,7 @@ func SendBookEmail(data data.BookData) {
 				<li><strong>Additional comments:</strong> %s</li>
 			</ul>
 		</body>
-	</html>`, data.Name, data.Phone, data.Email, data.Location, data.Duration, data.NumberOfGuests, data.EventDate, data.EventTime, data.Budget, data.Comment,
+	</html>`, data.Name, data.Phone, data.Email, data.Organization, data.Location, data.Duration, data.NumberOfGuests, data.EventDate, data.EventTime, data.Budget, data.Comment,
 	)
 
 	// gomail magic starts here
