@@ -59,7 +59,7 @@ func SendBookEmail(data data.BookData) {
 	m.SetBody("text/html", body)
 
 	// Settings for SMTP server
-	d := gomail.NewDialer("smtp.mail.me.com", 587, sender, password)
+	d := gomail.NewDialer("asmtp.mail.hostpoint.ch", 587, sender, password)
 
 	// This is only needed when SSL/TLS certificate is not valid on server.
 	// In production this should be set to false.
