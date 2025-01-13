@@ -10,6 +10,7 @@ require (
 )
 
 require (
+	github.com/aws/aws-lambda-go v1.47.0
 	github.com/go-playground/validator v9.31.0+incompatible
 	github.com/joho/godotenv v1.5.1 // indirect
 	gopkg.in/mail.v2 v2.3.1
