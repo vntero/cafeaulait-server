@@ -28,29 +28,29 @@ func SendRegisterEmail(data data.ResgisterData) {
 			<h2>Here are the registration details:</h2>
 			<ul>
 				<li><strong>Name:</strong> %s</li>
-				<li><strong>Birthday:</strong> %s</li>
-				<li><strong>Origin:</strong> %s</li>
-				<li><strong>Motivation:</strong> %s</li>
+				<li><strong>Geburtsdatum:</strong> %s</li>
+				<li><strong>Herkunft:</strong> %s</li>
+				<li><strong>Motivationsgrund:</strong> %s</li>
 			</ul>
-			<h2>Parent 1 Details</h2>
+			<h2>Erziehungsberechtigte:r 1</h2>
 			<ul>
 				<li><strong>Name:</strong> %s</li>
 				<li><strong>Email:</strong> %s</li>
 				<li><strong>Phone:</strong> %s</li>
-				<li><strong>Street:</strong> %s</li>
-				<li><strong>House Number:</strong> %s</li>
-				<li><strong>Postcode:</strong> %s</li>
-				<li><strong>Location:</strong> %s</li>
+				<li><strong>Strasse:</strong> %s</li>
+				<li><strong>Nr:</strong> %s</li>
+				<li><strong>PLZ:</strong> %s</li>
+				<li><strong>Ort:</strong> %s</li>
 			</ul>
-			<h2>Parent 2 Details</h2>
+			<h2>Erziehungsberechtigte:r 2</h2>
 			<ul>
 				<li><strong>Name:</strong> %s</li>
 				<li><strong>Email:</strong> %s</li>
 				<li><strong>Phone:</strong> %s</li>
-				<li><strong>Street:</strong> %s</li>
-				<li><strong>House Number:</strong> %s</li>
-				<li><strong>Postcode:</strong> %s</li>
-				<li><strong>Location:</strong> %s</li>
+				<li><strong>Strasse:</strong> %s</li>
+				<li><strong>Nr:</strong> %s</li>
+				<li><strong>PLZ:</strong> %s</li>
+				<li><strong>Ort:</strong> %s</li>
 			</ul>
 		</body>
 	</html>`, data.Name, data.Birthday, data.Origin, data.Motivation,
@@ -76,7 +76,7 @@ func SendRegisterEmail(data data.ResgisterData) {
 	m.SetBody("text/html", body)
 
 	// Settings for SMTP server
-	d := gomail.NewDialer("smtp.mail.me.com", 587, sender, password)
+	d := gomail.NewDialer("asmtp.mail.hostpoint.ch", 587, sender, password)
 
 	// This is only needed when SSL/TLS certificate is not valid on server.
 	// In production this should be set to false.
