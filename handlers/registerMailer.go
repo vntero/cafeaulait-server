@@ -24,8 +24,8 @@ func SendRegisterEmail(data data.ResgisterData) {
 	body := fmt.Sprintf(`
 	<html>
 		<body>
-			<h1>We have another child insterested in joining our classes!</h1>
-			<h2>Here are the registration details:</h2>
+			<h1>Ein weiteres Kind möchte bei uns mittanzen</h1>
+			<h2>Hier sind die Details:</h2>
 			<ul>
 				<li><strong>Name:</strong> %s</li>
 				<li><strong>Geburtsdatum:</strong> %s</li>
@@ -70,7 +70,7 @@ func SendRegisterEmail(data data.ResgisterData) {
 	m.SetHeader("To", receiver)
 
 	// Set E-Mail subject
-	m.SetHeader("Subject", "Child registration for dance classes")
+	m.SetHeader("Subject", "Ein weiteres Kind möchte bei uns mittanzen")
 
 	// Set E-Mail body. You can set plain text or html with text/html
 	m.SetBody("text/html", body)

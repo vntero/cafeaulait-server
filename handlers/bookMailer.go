@@ -24,20 +24,20 @@ func SendBookEmail(data data.BookData) {
 	body := fmt.Sprintf(`
 	<html>
 		<body>
-			<h1>Someone is interested in booking us!</h1>
-			<h3>Here are the event details:</h3>
+			<h1>Neue Buchungsanfrage eingegangen</h1>
+			<h3>Hier sind die Details:</h3>
 			<ul>
 				<li><strong>Name:</strong> %s</li>
-				<li><strong>Phone:</strong> %s</li>
-				<li><strong>Email:</strong> %s</li>
-				<li><strong>Organization:</strong> %s</li>
-				<li><strong>Location:</strong> %s</li>
-				<li><strong>Duration:</strong> %s</li>
+				<li><strong>Telefonnummer:</strong> %s</li>
+				<li><strong>Emailadresse:</strong> %s</li>
+				<li><strong>Organisation:</strong> %s</li>
+				<li><strong>Veranstaltungsort:</strong> %s</li>
+				<li><strong>Gästeanzahl:</strong> %s</li>
 				<li><strong>Number of guests:</strong> %s</li>
-				<li><strong>Event date:</strong> %s</li>
-				<li><strong>Event time:</strong> %s</li>
+				<li><strong>Veranstaltungsdatum:</strong> %s</li>
+				<li><strong>Veranstaltungszeit:</strong> %s</li>
 				<li><strong>Budget:</strong> %s</li>
-				<li><strong>Additional comments:</strong> %s</li>
+				<li><strong>Zusätzliche Infos oder Fragen:</strong> %s</li>
 			</ul>
 		</body>
 	</html>`, data.Name, data.Phone, data.Email, data.Organization, data.Location, data.Duration, data.NumberOfGuests, data.EventDate, data.EventTime, data.Budget, data.Comment,
@@ -53,7 +53,7 @@ func SendBookEmail(data data.BookData) {
 	m.SetHeader("To", receiver)
 
 	// Set E-Mail subject
-	m.SetHeader("Subject", "Interest in booking a show")
+	m.SetHeader("Subject", "Neue Buchungsanfrage eingegangen")
 
 	// Set E-Mail body. You can set plain text or html with text/html
 	m.SetBody("text/html", body)
