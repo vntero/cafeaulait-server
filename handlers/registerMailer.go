@@ -36,7 +36,7 @@ func SendRegisterEmail(data data.ResgisterData) {
 			<ul>
 				<li><strong>Name:</strong> %s</li>
 				<li><strong>Email:</strong> %s</li>
-				<li><strong>Phone:</strong> %s</li>
+				<li><strong>Telefonnummer:</strong> %s</li>
 				<li><strong>Strasse:</strong> %s</li>
 				<li><strong>Nr:</strong> %s</li>
 				<li><strong>PLZ:</strong> %s</li>
@@ -46,7 +46,7 @@ func SendRegisterEmail(data data.ResgisterData) {
 			<ul>
 				<li><strong>Name:</strong> %s</li>
 				<li><strong>Email:</strong> %s</li>
-				<li><strong>Phone:</strong> %s</li>
+				<li><strong>Telefonnummer:</strong> %s</li>
 				<li><strong>Strasse:</strong> %s</li>
 				<li><strong>Nr:</strong> %s</li>
 				<li><strong>PLZ:</strong> %s</li>

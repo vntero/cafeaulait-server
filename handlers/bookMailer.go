@@ -32,8 +32,8 @@ func SendBookEmail(data data.BookData) {
 				<li><strong>Emailadresse:</strong> %s</li>
 				<li><strong>Organisation:</strong> %s</li>
 				<li><strong>Veranstaltungsort:</strong> %s</li>
+				<li><strong>Gewünschte Dauer der Darbietung:</strong> %s</li>
 				<li><strong>Gästeanzahl:</strong> %s</li>
-				<li><strong>Number of guests:</strong> %s</li>
 				<li><strong>Veranstaltungsdatum:</strong> %s</li>
 				<li><strong>Veranstaltungszeit:</strong> %s</li>
 				<li><strong>Budget:</strong> %s</li>
