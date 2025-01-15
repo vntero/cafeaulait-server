@@ -12,15 +12,16 @@ import (
 )
 
 func SendRegisterEmail(data data.ResgisterData) {
-	// load the env file
 	configs.LoadEnv()
 
-	// sender data
 	sender := os.Getenv("SENDER")
 	password := os.Getenv("PASSWORD")
-	receiver := os.Getenv("RECEIVER")
+	server := os.Getenv("SERVER")
 
-	// email body
+	receiver := os.Getenv("RECEIVER")
+	
+
+	// Email body
 	body := fmt.Sprintf(`
 	<html>
 		<body>
@@ -66,7 +67,7 @@ func SendRegisterEmail(data data.ResgisterData) {
 	// Set E-Mail sender
 	m.SetHeader("From", sender)
 
-	// Set E-Mail receivers
+	// Set E-Mail receiver
 	m.SetHeader("To", receiver)
 
 	// Set E-Mail subject
@@ -76,7 +77,7 @@ func SendRegisterEmail(data data.ResgisterData) {
 	m.SetBody("text/html", body)
 
 	// Settings for SMTP server
-	d := gomail.NewDialer("asmtp.mail.hostpoint.ch", 587, sender, password)
+	d := gomail.NewDialer(server, 587, sender, password)
 
 	// This is only needed when SSL/TLS certificate is not valid on server.
 	// In production this should be set to false.
