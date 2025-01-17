@@ -40,16 +40,16 @@ func SendRegisterEmail(data data.ResgisterData) {
 		  }
 		  .header {
 			text-align: center;
-			color: #EF4444; /* Matches Tailwind text-red-500 */
+			color: #EF4444;
 			padding: 10px 0;
-			font-weight: 500; /* Matches Tailwind font-medium */
+			font-weight: 500;
 		  }
 		  .section {
 			margin-top: 20px;
 		  }
 		  h1, h2 {
-			color: #EF4444; /* Matches Tailwind text-red-500 */
-			font-weight: 500; /* Matches Tailwind font-medium */
+			color: #EF4444;
+			font-weight: 500;
 		  }
 		  ul {
 			list-style: none;
@@ -81,7 +81,7 @@ func SendRegisterEmail(data data.ResgisterData) {
 			</ul>
 		  </div>
 		  <div class="section">
-			<h2>Erziehungsberechtigte:r 1</h2>
+			<strong>Erziehungsberechtigte:r 1</strong>
 			<ul>
 			  <li><strong>Name:</strong> %s</li>
 			  <li><strong>Email:</strong> %s</li>
@@ -93,7 +93,7 @@ func SendRegisterEmail(data data.ResgisterData) {
 			</ul>
 		  </div>
 		  <div class="section">
-			<h2>Erziehungsberechtigte:r 2</h2>
+			<strong>Erziehungsberechtigte:r 2</strong>
 			<ul>
 			  <li><strong>Name:</strong> %s</li>
 			  <li><strong>Email:</strong> %s</li>
@@ -109,14 +109,12 @@ func SendRegisterEmail(data data.ResgisterData) {
 		  </div>
 		</div>
 	  </body>
-	</html>`, 
-	data.Name, data.Birthday, data.Origin, data.Motivation,
-	data.ParentOneName, data.ParentOneEmail, data.ParentOnePhone, data.ParentOneStreet,
-	data.ParentOneHouseNumber, data.ParentOnePostcode, data.ParentOneLocation,
-	data.ParentTwoName, data.ParentTwoEmail, data.ParentTwoPhone, data.ParentTwoStreet,
-	data.ParentTwoHouseNumber, data.ParentTwoPostcode, data.ParentTwoLocation)
-	
-	
+	</html>`,
+		data.Name, data.Birthday, data.Origin, data.Motivation,
+		data.ParentOneName, data.ParentOneEmail, data.ParentOnePhone, data.ParentOneStreet,
+		data.ParentOneHouseNumber, data.ParentOnePostcode, data.ParentOneLocation,
+		data.ParentTwoName, data.ParentTwoEmail, data.ParentTwoPhone, data.ParentTwoStreet,
+		data.ParentTwoHouseNumber, data.ParentTwoPostcode, data.ParentTwoLocation)
 
 	// gomail magic starts here
 	m := gomail.NewMessage()

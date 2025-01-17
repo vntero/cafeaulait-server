@@ -16,17 +16,65 @@ func SendBookEmail(data data.BookData) {
 	configs.LoadEnv()
 
 	// sender data
-	sender := os.Getenv("SENDER")
-	password := os.Getenv("PASSWORD")
-	receiver := os.Getenv("RECEIVER")
+	sender := os.Getenv("SENDER_ICLOUD")
+	password := os.Getenv("PASSWORD_ICLOUD")
+	receiver := os.Getenv("RECEIVER_ICLOUD")
+	server := os.Getenv("SERVER_ICLOUD")
 
 	// email body
 	body := fmt.Sprintf(`
-	<html>
+		<html>
+		<head>
+			<style>
+			body {
+				font-family: Arial, sans-serif;
+				line-height: 1.6;
+				color: #333333;
+			}
+			.container {
+				max-width: 600px;
+				margin: auto;
+				border: 1px solid #dddddd;
+				padding: 20px;
+				border-radius: 10px;
+				background-color: white;
+			}
+			.header {
+				text-align: center;
+				color: #EF4444; /* Matches Tailwind text-red-500 */
+				padding: 10px 0;
+				font-weight: 500; /* Matches Tailwind font-medium */
+			}
+			.section {
+				margin-top: 20px;
+			}
+			h1, h3 {
+				color: #EF4444; /* Matches Tailwind text-red-500 */
+				font-weight: 500; /* Matches Tailwind font-medium */
+			}
+			ul {
+				list-style: none;
+				padding: 0;
+			}
+			ul li {
+				margin-bottom: 8px;
+			}
+			.footer {
+				text-align: center;
+				margin-top: 20px;
+				font-size: 12px;
+				color: #aaaaaa;
+			}
+			</style>
+		</head>
 		<body>
-			<h1>Neue Buchungsanfrage eingegangen</h1>
-			<h3>Hier sind die Details:</h3>
-			<ul>
+			<div class="container">
+			<div class="header">
+				<h1>Neue Buchungsanfrage eingegangen</h1>
+			</div>
+			<div class="section">
+				<h3>Hier sind die Details:</h3>
+				<ul>
 				<li><strong>Name:</strong> %s</li>
 				<li><strong>Telefonnummer:</strong> %s</li>
 				<li><strong>Emailadresse:</strong> %s</li>
@@ -38,10 +86,16 @@ func SendBookEmail(data data.BookData) {
 				<li><strong>Veranstaltungszeit:</strong> %s</li>
 				<li><strong>Budget:</strong> %s</li>
 				<li><strong>Zusätzliche Infos oder Fragen:</strong> %s</li>
-			</ul>
+				</ul>
+			</div>
+			<div class="footer">
+				<p>Diese Nachricht wurde automatisch generiert. Bitte nicht darauf antworten.</p>
+			</div>
+			</div>
 		</body>
-	</html>`, data.Name, data.Phone, data.Email, data.Organization, data.Location, data.Duration, data.NumberOfGuests, data.EventDate, data.EventTime, data.Budget, data.Comment,
-	)
+		</html>`,
+		data.Name, data.Phone, data.Email, data.Organization, data.Location, data.Duration,
+		data.NumberOfGuests, data.EventDate, data.EventTime, data.Budget, data.Comment)
 
 	// gomail magic starts here
 	m := gomail.NewMessage()
@@ -59,7 +113,7 @@ func SendBookEmail(data data.BookData) {
 	m.SetBody("text/html", body)
 
 	// Settings for SMTP server
-	d := gomail.NewDialer("asmtp.mail.hostpoint.ch", 587, sender, password)
+	d := gomail.NewDialer(server, 587, sender, password)
 
 	// This is only needed when SSL/TLS certificate is not valid on server.
 	// In production this should be set to false.
