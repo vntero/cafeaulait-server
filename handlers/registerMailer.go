@@ -14,52 +14,109 @@ import (
 func SendRegisterEmail(data data.ResgisterData) {
 	configs.LoadEnv()
 
-	sender := os.Getenv("SENDER")
-	password := os.Getenv("PASSWORD")
-	server := os.Getenv("SERVER")
+	sender := os.Getenv("SENDER_ICLOUD")
+	password := os.Getenv("PASSWORD_ICLOUD")
+	server := os.Getenv("SERVER_ICLOUD")
 
-	receiver := os.Getenv("RECEIVER")
-	
+	receiver := os.Getenv("RECEIVER_ICLOUD")
 
 	// Email body
 	body := fmt.Sprintf(`
 	<html>
-		<body>
+	  <head>
+		<style>
+		  body {
+			font-family: Arial, sans-serif;
+			line-height: 1.6;
+			color: #333333;
+		  }
+		  .container {
+			max-width: 600px;
+			margin: auto;
+			border: 1px solid #dddddd;
+			padding: 20px;
+			border-radius: 10px;
+			background-color: white;
+		  }
+		  .header {
+			text-align: center;
+			color: #EF4444; /* Matches Tailwind text-red-500 */
+			padding: 10px 0;
+			font-weight: 500; /* Matches Tailwind font-medium */
+		  }
+		  .section {
+			margin-top: 20px;
+		  }
+		  h1, h2 {
+			color: #EF4444; /* Matches Tailwind text-red-500 */
+			font-weight: 500; /* Matches Tailwind font-medium */
+		  }
+		  ul {
+			list-style: none;
+			padding: 0;
+		  }
+		  ul li {
+			margin-bottom: 8px;
+		  }
+		  .footer {
+			text-align: center;
+			margin-top: 20px;
+			font-size: 12px;
+			color: #aaaaaa;
+		  }
+		</style>
+	  </head>
+	  <body>
+		<div class="container">
+		  <div class="header">
 			<h1>Ein weiteres Kind möchte bei uns mittanzen</h1>
+		  </div>
+		  <div class="section">
 			<h2>Hier sind die Details:</h2>
 			<ul>
-				<li><strong>Name:</strong> %s</li>
-				<li><strong>Geburtsdatum:</strong> %s</li>
-				<li><strong>Herkunft:</strong> %s</li>
-				<li><strong>Motivationsgrund:</strong> %s</li>
+			  <li><strong>Name:</strong> %s</li>
+			  <li><strong>Geburtsdatum:</strong> %s</li>
+			  <li><strong>Herkunft:</strong> %s</li>
+			  <li><strong>Motivationsgrund:</strong> %s</li>
 			</ul>
+		  </div>
+		  <div class="section">
 			<h2>Erziehungsberechtigte:r 1</h2>
 			<ul>
-				<li><strong>Name:</strong> %s</li>
-				<li><strong>Email:</strong> %s</li>
-				<li><strong>Telefonnummer:</strong> %s</li>
-				<li><strong>Strasse:</strong> %s</li>
-				<li><strong>Nr:</strong> %s</li>
-				<li><strong>PLZ:</strong> %s</li>
-				<li><strong>Ort:</strong> %s</li>
+			  <li><strong>Name:</strong> %s</li>
+			  <li><strong>Email:</strong> %s</li>
+			  <li><strong>Telefonnummer:</strong> %s</li>
+			  <li><strong>Strasse:</strong> %s</li>
+			  <li><strong>Nr:</strong> %s</li>
+			  <li><strong>PLZ:</strong> %s</li>
+			  <li><strong>Ort:</strong> %s</li>
 			</ul>
+		  </div>
+		  <div class="section">
 			<h2>Erziehungsberechtigte:r 2</h2>
 			<ul>
-				<li><strong>Name:</strong> %s</li>
-				<li><strong>Email:</strong> %s</li>
-				<li><strong>Telefonnummer:</strong> %s</li>
-				<li><strong>Strasse:</strong> %s</li>
-				<li><strong>Nr:</strong> %s</li>
-				<li><strong>PLZ:</strong> %s</li>
-				<li><strong>Ort:</strong> %s</li>
+			  <li><strong>Name:</strong> %s</li>
+			  <li><strong>Email:</strong> %s</li>
+			  <li><strong>Telefonnummer:</strong> %s</li>
+			  <li><strong>Strasse:</strong> %s</li>
+			  <li><strong>Nr:</strong> %s</li>
+			  <li><strong>PLZ:</strong> %s</li>
+			  <li><strong>Ort:</strong> %s</li>
 			</ul>
-		</body>
-	</html>`, data.Name, data.Birthday, data.Origin, data.Motivation,
-		data.ParentOneName, data.ParentOneEmail, data.ParentOnePhone, data.ParentOneStreet,
-		data.ParentOneHouseNumber, data.ParentOnePostcode, data.ParentOneLocation,
-		data.ParentTwoName, data.ParentTwoEmail, data.ParentTwoPhone, data.ParentTwoStreet,
-		data.ParentTwoHouseNumber, data.ParentTwoPostcode, data.ParentTwoLocation,
-	)
+		  </div>
+		  <div class="footer">
+			<p>Diese Nachricht wurde automatisch generiert. Bitte nicht darauf antworten.</p>
+		  </div>
+		</div>
+	  </body>
+	</html>`, 
+	data.Name, data.Birthday, data.Origin, data.Motivation,
+	data.ParentOneName, data.ParentOneEmail, data.ParentOnePhone, data.ParentOneStreet,
+	data.ParentOneHouseNumber, data.ParentOnePostcode, data.ParentOneLocation,
+	data.ParentTwoName, data.ParentTwoEmail, data.ParentTwoPhone, data.ParentTwoStreet,
+	data.ParentTwoHouseNumber, data.ParentTwoPostcode, data.ParentTwoLocation)
+	
+	
 
 	// gomail magic starts here
 	m := gomail.NewMessage()
