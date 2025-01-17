@@ -14,11 +14,11 @@ import (
 func SendRegisterEmail(data data.ResgisterData) {
 	configs.LoadEnv()
 
-	sender := os.Getenv("SENDER_ICLOUD")
-	password := os.Getenv("PASSWORD_ICLOUD")
-	server := os.Getenv("SERVER_ICLOUD")
+	sender := os.Getenv("SENDER")
+	password := os.Getenv("PASSWORD")
+	server := os.Getenv("SERVER")
 
-	receiver := os.Getenv("RECEIVER_ICLOUD")
+	receiver := os.Getenv("RECEIVER")
 
 	// Email body
 	body := fmt.Sprintf(`

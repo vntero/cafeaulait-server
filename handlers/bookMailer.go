@@ -16,10 +16,10 @@ func SendBookEmail(data data.BookData) {
 	configs.LoadEnv()
 
 	// sender data
-	sender := os.Getenv("SENDER_ICLOUD")
-	password := os.Getenv("PASSWORD_ICLOUD")
-	receiver := os.Getenv("RECEIVER_ICLOUD")
-	server := os.Getenv("SERVER_ICLOUD")
+	sender := os.Getenv("SENDER")
+	password := os.Getenv("PASSWORD")
+	receiver := os.Getenv("RECEIVER")
+	server := os.Getenv("SERVER")
 
 	// email body
 	body := fmt.Sprintf(`
