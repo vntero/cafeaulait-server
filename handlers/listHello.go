@@ -10,6 +10,6 @@ func ListHello(w http.ResponseWriter, r *http.Request) {
 	configs.EnableCors(&w)
 
 	if r.Method == http.MethodGet {
-		fmt.Fprintln(w, "cafeaulait server is live!")
+		fmt.Fprintln(w, "mittwuch monolithic server is live!")
 	}
 }
