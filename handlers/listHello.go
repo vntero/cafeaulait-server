@@ -7,7 +7,7 @@ import (
 )
 
 func ListHello(w http.ResponseWriter, r *http.Request) {
-	configs.EnableCors(&w)
+	configs.EnableCors(&w, r)
 
 	if r.Method == http.MethodGet {
 		fmt.Fprintln(w, "mittwuch monolithic server is live!")

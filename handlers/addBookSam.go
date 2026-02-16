@@ -3,6 +3,7 @@ package handlers
 import (
 	"cafeaulait-server/configs"
 	"cafeaulait-server/data"
+
 	"encoding/json"
 	"log"
 	"net/http"
@@ -10,10 +11,10 @@ import (
 	"github.com/go-playground/validator"
 )
 
-func AddRegister(w http.ResponseWriter, r *http.Request) {
+func AddBookSam(w http.ResponseWriter, r *http.Request) {
 	configs.EnableCors(&w, r)
 
-	// Handle preflight OPTIONS request
+	// responds to preflight OPTIONS requests
 	if r.Method == http.MethodOptions {
 		w.WriteHeader(http.StatusOK)
 		return
@@ -22,8 +23,8 @@ func AddRegister(w http.ResponseWriter, r *http.Request) {
 	// check if it's a POST method
 	if r.Method == http.MethodPost {
 		// Decode the incoming JSON payload into the struct directly
-		var registerData data.ResgisterData
-		err := json.NewDecoder(r.Body).Decode(&registerData)
+		var bookSamData data.BookSamData
+		err := json.NewDecoder(r.Body).Decode(&bookSamData)
 		if err != nil {
 			log.Println("Error decoding JSON:", err)
 			http.Error(w, "Invalid request body", http.StatusBadRequest)
@@ -32,18 +33,18 @@ func AddRegister(w http.ResponseWriter, r *http.Request) {
 
 		// Validate incoming data
 		validate := validator.New()
-		if err := validate.Struct(registerData); err != nil {
-			log.Printf("Invalid data: %v", registerData)
+		if err := validate.Struct(bookSamData); err != nil {
+			log.Printf("Invalid data: %v", bookSamData)
 			http.Error(w, "Invalid request data", http.StatusBadRequest)
 			return
 		}
 
-		// confirm to client that data has been received
+		// Respond with the received data as confirmation
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(registerData)
+		json.NewEncoder(w).Encode(bookSamData)
 
 		// Send an email with the received data
-		SendRegisterEmail(registerData)
+		SendBookSamEmail(bookSamData)
 	} else {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}

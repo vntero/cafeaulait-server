@@ -12,7 +12,7 @@ import (
 )
 
 func AddBook(w http.ResponseWriter, r *http.Request) {
-	configs.EnableCors(&w)
+	configs.EnableCors(&w, r)
 
 	// responds to preflight OPTIONS requests
 	if r.Method == http.MethodOptions {
