@@ -19,183 +19,80 @@ func SendBookSamEmail(data data.BookSamData) {
 	server := os.Getenv("SERVER_SAM")
 
 	receiverSam := os.Getenv("RECEIVER_SAM")
-	receiverCustomer := data.Email
+	// receiverCustomer := data.Email
 
-	// Internal email body
+	// Internal email body - plain text
 	businessBody := fmt.Sprintf(`
-		<html>
-		<head>
-			<style>
-			body {
-				font-family: Arial, sans-serif;
-				line-height: 1.6;
-				color: #333333;
-			}
-			.container {
-				max-width: 600px;
-				margin: auto;
-				border: 1px solid #dddddd;
-				padding: 20px;
-				border-radius: 10px;
-				background-color: white;
-			}
-			.header {
-				text-align: center;
-				color: #EF4444; /* Matches Tailwind text-red-500 */
-				padding: 10px 0;
-				font-weight: 500; /* Matches Tailwind font-medium */
-			}
-			.section {
-				margin-top: 20px;
-			}
-			h1, h3 {
-				color: #EF4444; /* Matches Tailwind text-red-500 */
-				font-weight: 500; /* Matches Tailwind font-medium */
-			}
-			ul {
-				list-style: none;
-				padding: 0;
-			}
-			ul li {
-				margin-bottom: 8px;
-			}
-			.footer {
-				text-align: center;
-				margin-top: 20px;
-				font-size: 12px;
-				color: #aaaaaa;
-			}
-			</style>
-		</head>
-		<body>
-			<div class="container">
-			<div class="header">
-				<h1>Neue Buchungsanfrage eingegangen</h1>
-			</div>
-			<div class="section">
-				<h3>Hier sind die Details:</h3>
-				<ul>
-				<li><strong>Name:</strong> %s</li>
-				<li><strong>Telefonnummer:</strong> %s</li>
-				<li><strong>Emailadresse:</strong> %s</li>
-				<li><strong>Organisation:</strong> %s</li>
-				<li><strong>Veranstaltungsort:</strong> %s</li>
-				<li><strong>Gewünschte Dauer der Darbietung:</strong> %s</li>
-				<li><strong>Gästeanzahl:</strong> %s</li>
-				<li><strong>Veranstaltungsdatum:</strong> %s</li>
-				<li><strong>Veranstaltungszeit:</strong> %s</li>
-				<li><strong>Budget:</strong> %s</li>
-				<li><strong>Zusätzliche Infos oder Fragen:</strong> %s</li>
-				</ul>
-			</div>
-			<div class="footer">
-				<p>Diese Nachricht wurde automatisch generiert. Bitte nicht darauf antworten.</p>
-			</div>
-			</div>
-		</body>
-		</html>`,
-		data.Name, data.LastName, data.Phone, data.Email,  data.Location, 
-		data.NumberOfGuests, data.Occasion, data.EventDate, data.Comment)
+Neue Buchungsanfrage eingegangen
 
-	// External email body
+Hier sind die Details:
+
+Name: %s %s
+Telefonnummer: %s
+Emailadresse: %s
+Organisation: %s
+Veranstaltungsort: %s
+Gewünschte Dauer der Darbietung: %s
+Gästeanzahl: %s
+Veranstaltungsdatum: %s
+Veranstaltungszeit: %s
+Budget: %s
+Zusätzliche Infos oder Fragen: %s
+
+---
+Diese Nachricht wurde automatisch generiert.`,
+		data.Name, data.LastName, data.Phone, data.Email, data.Organization,
+		data.Location, data.Duration, data.NumberOfGuests, data.EventDate,
+		data.EventTime, data.Budget, data.Comment)
+
+	// External email body - COMMENTED OUT
+	/*
 	customerBody := fmt.Sprintf(`
-		<html>
-		<head>
-			<style>
-			body {
-				font-family: Arial, sans-serif;
-				line-height: 1.6;
-				color: #333333;
-			}
-			.container {
-				max-width: 600px;
-				margin: auto;
-				border: 1px solid #dddddd;
-				padding: 20px;
-				border-radius: 10px;
-				background-color: white;
-			}
-			.header {
-				text-align: center;
-				color: #EF4444; /* Matches Tailwind text-red-500 */
-				padding: 10px 0;
-				font-weight: 500; /* Matches Tailwind font-medium */
-			}
-			.section {
-				margin-top: 20px;
-			}
-			h1, h3 {
-				color: #EF4444; /* Matches Tailwind text-red-500 */
-				font-weight: 500; /* Matches Tailwind font-medium */
-			}
-			ul {
-				list-style: none;
-				padding: 0;
-			}
-			ul li {
-				margin-bottom: 8px;
-			}
-			.footer {
-				text-align: center;
-				margin-top: 20px;
-				font-size: 12px;
-				color: #aaaaaa;
-			}
-			</style>
-		</head>
-		<body>
-			<div class="container">
-			<div class="header">
-				<h1>Vielen Dank für Ihre Buchungsanfrage</h1>
-			</div>
-			<div class="section">
-				<h3>Wir haben folgende Details erhalten:</h3>
-				<ul>
-				<li><strong>Name:</strong> %s</li>
-				<li><strong>Telefonnummer:</strong> %s</li>
-				<li><strong>Emailadresse:</strong> %s</li>
-				<li><strong>Organisation:</strong> %s</li>
-				<li><strong>Veranstaltungsort:</strong> %s</li>
-				<li><strong>Gewünschte Dauer der Darbietung:</strong> %s</li>
-				<li><strong>Gästeanzahl:</strong> %s</li>
-				<li><strong>Veranstaltungsdatum:</strong> %s</li>
-				<li><strong>Veranstaltungszeit:</strong> %s</li>
-				<li><strong>Budget:</strong> %s</li>
-				<li><strong>Zusätzliche Infos oder Fragen:</strong> %s</li>
-				</ul>
-			</div>
-			<div class="signature">
-		  		<br></br>
-				<p>Wir werden uns in Kürze bei Ihnen melden.</p>
-				<p>Liebe Grüsse,</p>
-        		<p>Café Au Lait Team</p>
-		  </div>
-			<div class="footer">
-				<p>Dies ist eine automatisch generierte. Bestätigung Ihrer Anfrage.</p>
-			</div>
-			</div>
-		</body>
-		</html>`,
-		data.Name, data.LastName, data.Phone, data.Email,  data.Location, 
-		data.NumberOfGuests, data.Occasion, data.EventDate, data.Comment)
+Vielen Dank für Ihre Buchungsanfrage
+
+Wir haben folgende Details erhalten:
+
+Name: %s %s
+Telefonnummer: %s
+Emailadresse: %s
+Organisation: %s
+Veranstaltungsort: %s
+Gewünschte Dauer der Darbietung: %s
+Gästeanzahl: %s
+Veranstaltungsdatum: %s
+Veranstaltungszeit: %s
+Budget: %s
+Zusätzliche Infos oder Fragen: %s
+
+Wir werden uns in Kürze bei Ihnen melden.
+
+Liebe Grüsse,
+Café Au Lait Team
+
+---
+Dies ist eine automatisch generierte Bestätigung Ihrer Anfrage.`,
+		data.Name, data.LastName, data.Phone, data.Email, data.Organization,
+		data.Location, data.Duration, data.NumberOfGuests, data.EventDate,
+		data.EventTime, data.Budget, data.Comment)
+	*/
 
 	// Send to business
 	m1 := gomail.NewMessage()
 	m1.SetHeader("From", sender)
 	m1.SetHeader("To", receiverSam)
 	m1.SetHeader("Subject", "Neue Buchungsanfrage eingegangen")
-	m1.SetBody("text/html", businessBody)
+	m1.SetBody("text/plain", businessBody)
 
-	// Send to customer
+	// Send to customer - COMMENTED OUT
+	/*
 	m2 := gomail.NewMessage()
 	m2.SetHeader("From", sender)
 	m2.SetHeader("To", receiverCustomer)
 	m2.SetHeader("Subject", "Bestätigung Ihrer Buchungsanfrage")
-	m2.SetBody("text/html", customerBody)
+	m2.SetBody("text/plain", customerBody)
+	*/
 
 	// Settings for SMTP server
-	// This is only needed when SSL/TLS certificate is not valid on server.
-	// In production this should be set to false.
 	d := gomail.NewDialer(server, 587, sender, password)
 	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
@@ -205,11 +102,11 @@ func SendBookSamEmail(data data.BookSamData) {
 		panic(err)
 	}
 
-	// Send email to customer
+	// Send email to customer - COMMENTED OUT
+	/*
 	if err := d.DialAndSend(m2); err != nil {
 		fmt.Println(err)
 		panic(err)
 	}
-
-	// return
+	*/
 }
