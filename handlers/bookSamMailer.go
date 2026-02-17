@@ -35,15 +35,14 @@ Veranstaltungsort: %s
 Gewünschte Dauer der Darbietung: %s
 Gästeanzahl: %s
 Veranstaltungsdatum: %s
-Veranstaltungszeit: %s
 Budget: %s
 Zusätzliche Infos oder Fragen: %s
 
 ---
 Diese Nachricht wurde automatisch generiert.`,
-		data.Name, data.LastName, data.Phone, data.Email, data.Organization,
-		data.Location, data.Duration, data.NumberOfGuests, data.EventDate,
-		data.EventTime, data.Budget, data.Comment)
+		data.Name, data.LastName, data.Phone, data.Email, data.EventDate,
+		data.Location, data.NumberOfGuests, data.EventDate,
+		data.Comment)
 
 	// External email body - COMMENTED OUT
 	/*
