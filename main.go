@@ -16,6 +16,7 @@ func main() {
 	routes.GetHello()
 	routes.PostBook()
 	routes.PostRegister()
+	routes.PostBookSam()
 
 	// start server
 	log.Println("Starting server on :" + os.Getenv("PORT"))

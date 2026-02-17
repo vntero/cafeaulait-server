@@ -18,7 +18,7 @@ func SendBookSamEmail(data data.BookSamData) {
 	password := os.Getenv("PASSWORD_SAM")
 	server := os.Getenv("SERVER_SAM")
 
-	receiverCal := os.Getenv("RECEIVER_SAM")
+	receiverSam := os.Getenv("RECEIVER_SAM")
 	receiverCustomer := data.Email
 
 	// Internal email body
@@ -182,7 +182,7 @@ func SendBookSamEmail(data data.BookSamData) {
 	// Send to business
 	m1 := gomail.NewMessage()
 	m1.SetHeader("From", sender)
-	m1.SetHeader("To", receiverCal)
+	m1.SetHeader("To", receiverSam)
 	m1.SetHeader("Subject", "Neue Buchungsanfrage eingegangen")
 	m1.SetBody("text/html", businessBody)
 
