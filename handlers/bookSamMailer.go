@@ -12,87 +12,77 @@ import (
 	gomail "gopkg.in/mail.v2"
 )
 
-func SendBookSamEmail(data data.BookSamData) error{
+func SendBookSamEmail(data data.BookSamData) error {
 	configs.LoadEnv()
 
 	sender := os.Getenv("SENDER_SAM")
+	smtpUser := os.Getenv("SENDER_ICLOUD") // Using main iCloud email only for SMTP authentication
 	password := os.Getenv("PASSWORD_SAM")
 	server := os.Getenv("SERVER_SAM")
-
 	receiverSam := os.Getenv("RECEIVER_SAM")
-	// receiverCustomer := data.Email
+	log.Printf("receiverSam: %v\n", receiverSam)
+	receiverCustomer := data.Email
 
-	// Internal email body - plain text
+// Internal email body - plain text
 	businessBody := fmt.Sprintf(`
-Neue Buchungsanfrage eingegangen
+You have received a new booking request with the following details:
 
-Hier sind die Details:
-
-Name: %s %s
-Telefonnummer: %s
-Emailadresse: %s
-Organisation: %s
-Veranstaltungsort: %s
-Gewünschte Dauer der Darbietung: %s
-Gästeanzahl: %s
-Veranstaltungsdatum: %s
-Zusätzliche Infos oder Fragen: %s
+Name: %s
+Email: %s
+Phone: %s
+Preferred Event Date: %s
+Location: %s
+Number of guests: %s
+Occasion: %s
+Message: %s
 
 ---
-Diese Nachricht wurde automatisch generiert.`,
-		data.Name, data.LastName, data.Phone, data.Email, data.EventDate,
-		data.Location, data.NumberOfGuests, data.EventDate,
-		data.Comment)
+This message was automatically generated.`,
+		data.Name, data.Email, data.Phone, data.EventDate,
+		data.Location, data.NumberOfGuests, data.Occasion,
+		data.Message)
 
-	// External email body - COMMENTED OUT
-	/*
+// External email body
 	customerBody := fmt.Sprintf(`
-Vielen Dank für Ihre Buchungsanfrage
+Thank you for your booking request! I have received the following details:
 
-Wir haben folgende Details erhalten:
+Name: %s
+Email: %s
+Phone: %s
+Preferred Event Date: %s
+Location: %s
+Number of guests: %s
+Occasion: %s
+Message: %s
 
-Name: %s %s
-Telefonnummer: %s
-Emailadresse: %s
-Organisation: %s
-Veranstaltungsort: %s
-Gewünschte Dauer der Darbietung: %s
-Gästeanzahl: %s
-Veranstaltungsdatum: %s
-Veranstaltungszeit: %s
-Budget: %s
-Zusätzliche Infos oder Fragen: %s
+I will get back to you shortly.
 
-Wir werden uns in Kürze bei Ihnen melden.
-
-Liebe Grüsse,
-Café Au Lait Team
+Kind regards
+Sam In The Kitchen
 
 ---
-Dies ist eine automatisch generierte Bestätigung Ihrer Anfrage.`,
-		data.Name, data.LastName, data.Phone, data.Email, data.Organization,
-		data.Location, data.Duration, data.NumberOfGuests, data.EventDate,
-		data.EventTime, data.Budget, data.Comment)
-	*/
+This message was automatically generated.`,
+		data.Name, data.Email, data.Phone, data.EventDate,
+		data.Location, data.NumberOfGuests, data.Occasion,
+		data.Message)
 
 	// Send to business
 	m1 := gomail.NewMessage()
 	m1.SetHeader("From", sender)
 	m1.SetHeader("To", receiverSam)
-	m1.SetHeader("Subject", "Neue Buchungsanfrage eingegangen")
+	m1.SetHeader("Subject", "New Booking Request Received")
 	m1.SetBody("text/plain", businessBody)
 
-	// Send to customer - COMMENTED OUT
-	/*
+	// Send to customer
 	m2 := gomail.NewMessage()
 	m2.SetHeader("From", sender)
 	m2.SetHeader("To", receiverCustomer)
-	m2.SetHeader("Subject", "Bestätigung Ihrer Buchungsanfrage")
+	m2.SetHeader("Subject", "Confirmation of Your Booking Request")
 	m2.SetBody("text/plain", customerBody)
-	*/
+	
 
 	// Settings for SMTP server
-	d := gomail.NewDialer(server, 587, sender, password)
+	d := gomail.NewDialer(server, 587, smtpUser, password)
 	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
 	// Send email to business
@@ -102,13 +92,12 @@ Dies ist eine automatisch generierte Bestätigung Ihrer Anfrage.`,
 		return err
 	}
 
-	// Send email to customer - COMMENTED OUT
-	/*
+	// Send email to customer	
 	if err := d.DialAndSend(m2); err != nil {
 		fmt.Println(err)
-		panic(err)
+		log.Printf("Failed to send email to customer: %v", err)
+		return err
 	}
-	*/
 
 	log.Println("Email sent successfully")
 	return nil
