@@ -3,6 +3,7 @@ package handlers
 import (
 	"crypto/tls"
 	"fmt"
+	"log"
 	"os"
 
 	"cafeaulait-server/configs"
@@ -11,7 +12,7 @@ import (
 	gomail "gopkg.in/mail.v2"
 )
 
-func SendBookSamEmail(data data.BookSamData) {
+func SendBookSamEmail(data data.BookSamData) error{
 	configs.LoadEnv()
 
 	sender := os.Getenv("SENDER_SAM")
@@ -35,7 +36,6 @@ Veranstaltungsort: %s
 Gewünschte Dauer der Darbietung: %s
 Gästeanzahl: %s
 Veranstaltungsdatum: %s
-Budget: %s
 Zusätzliche Infos oder Fragen: %s
 
 ---
@@ -98,7 +98,8 @@ Dies ist eine automatisch generierte Bestätigung Ihrer Anfrage.`,
 	// Send email to business
 	if err := d.DialAndSend(m1); err != nil {
 		fmt.Println(err)
-		panic(err)
+		log.Printf("Failed to send email: %v", err)
+		return err
 	}
 
 	// Send email to customer - COMMENTED OUT
@@ -108,4 +109,7 @@ Dies ist eine automatisch generierte Bestätigung Ihrer Anfrage.`,
 		panic(err)
 	}
 	*/
+
+	log.Println("Email sent successfully")
+	return nil
 }
